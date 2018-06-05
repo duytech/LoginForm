@@ -1,0 +1,59 @@
+@import '~antd/dist/antd.css';
+
+.Login {
+  text-align: center;
+}
+
+.login-container {
+    text-align: center;
+}
+
+.login-center-div {
+    display: inline-block;
+    width: 500px;
+}
+
+.login-input{
+    width: 100%;
+    height: 60px;
+    border-radius: 3px;
+    background-color: #f6f6f6;
+}
+
+p {
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.text-login{
+    font-size: 24px;
+    letter-spacing: 3.4px;
+}
+
+.btn-signin {
+    width: 100%;
+    height: 60px;
+    border-radius: 3px;
+    background-color: #ff4d66;
+    outline: none;
+    color: white;
+}
+
+.btn-third-login{
+    width: 235px;
+    height: 60px;
+    border-radius: 30px;
+    border: solid 1px #ff4d66;
+    background-color: white;
+    display: inline-block;
+    outline: none;
+    color: #ff4d66;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.distance-div{
+    display: inline-block;
+    width: 30px;
+}
