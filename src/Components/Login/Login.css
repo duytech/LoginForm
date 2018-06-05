@@ -13,10 +13,13 @@
     width: 500px;
 }
 
-.login-input{
+.login-input {
     width: 100%;
     height: 60px;
     border-radius: 3px;
+    background-color: #f6f6f6;
+}
+.login-input > input {
     background-color: #f6f6f6;
 }
 

@@ -22,8 +22,7 @@ class Login extends React.Component{
                     "Password": values.password
                 };
                 axios.post(BASE_URL + '/api/authentication/login', postObject)
-                    .then(res => { console.log(res); })
-                    .catch(err => { alert(err); });
+                    .then(res => { console.log(res); }).catch(err => { alert(err); });
             }
         });
     }
