@@ -1,62 +1,52 @@
-@import '~antd/dist/antd.css';
-
-.Login {
-  text-align: center;
-}
-
+@import url(~antd/dist/antd.css);
 .login-container {
-    text-align: center;
-}
-
-.login-center-div {
+  text-align: center; }
+  .login-container .login-center-div {
     display: inline-block;
-    width: 500px;
-}
-
-.login-input {
-    width: 100%;
-    height: 60px;
-    border-radius: 3px;
-    background-color: #f6f6f6;
-}
-.login-input > input {
-    background-color: #f6f6f6;
-}
-
-p {
-    text-align: center;
-    margin-top: 12px;
-    margin-bottom: 12px;
-}
-
-.text-login{
-    font-size: 24px;
-    letter-spacing: 3.4px;
-}
-
-.btn-signin {
-    width: 100%;
-    height: 60px;
-    border-radius: 3px;
-    background-color: #ff4d66;
-    outline: none;
-    color: white;
-}
-
-.btn-third-login{
-    width: 235px;
-    height: 60px;
-    border-radius: 30px;
-    border: solid 1px #ff4d66;
-    background-color: white;
-    display: inline-block;
-    outline: none;
-    color: #ff4d66;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.distance-div{
-    display: inline-block;
-    width: 30px;
-}
+    width: 500px; }
+    .login-container .login-center-div .text-login {
+      font-size: 24px;
+      font-family: Roboto;
+      letter-spacing: 3.4px;
+      color: #3f3f3f; }
+    .login-container .login-center-div .login-input {
+      width: 100%;
+      height: 60px;
+      border-radius: 3px;
+      background-color: #f6f6f6; }
+    .login-container .login-center-div .login-input > input {
+      background-color: #f6f6f6;
+      font-size: 14px;
+      line-height: 1.43;
+      text-align: left;
+      color: #cbcbcb; }
+    .login-container .login-center-div .text-or {
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      font-family: WorkSans;
+      font-size: 16px; }
+    .login-container .login-center-div .btn-signin {
+      width: 100%;
+      height: 60px;
+      border-radius: 3px;
+      background-color: #ff4d66;
+      outline: none;
+      color: white; }
+    .login-container .login-center-div .btn-third-login {
+      width: 235px;
+      height: 60px;
+      border-radius: 30px;
+      border: solid 1px #ff4d66;
+      background-color: white;
+      display: inline-block;
+      outline: none;
+      color: #ff4d66;
+      font-size: 24px;
+      font-weight: bold; }
+    .login-container .login-center-div .distance-div-3 {
+      display: inline-block;
+      width: 30px; }
+    .login-container .login-center-div .distance-div-2 {
+      display: inline-block;
+      width: 20px; }

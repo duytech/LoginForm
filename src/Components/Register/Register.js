@@ -4,27 +4,37 @@ import Form  from 'antd/lib/form';
 import Input  from 'antd/lib/input';
 import Icon from 'antd/lib/icon';
 import axios from 'axios';
-import './Login.css';
+import './Register.css';
 
 const BASE_URL = 'http://zod.2cs.local/indexci';
 const FormItem = Form.Item;
 
-class Login extends React.Component {
+class Register extends React.Component {
     handleSubmit = (e) => {
       e.preventDefault();
-      console.log('login handleSubmit');
+      console.log('register handleSubmit');
       this.props.form.validateFields((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values);
           const postObject = {
+            'Email': values.email,
             'Username': values.email,
             'Password': values.password,
           };
-          axios.post(BASE_URL + '/api/authentication/login', postObject)
+          axios.post(BASE_URL + '/api/user/register', postObject)
             .then(res => { alert(res.statusText); })
             .catch(err => { alert(err); });
         }
       });
+    }
+
+    compareToFirstPassword = (rule, value, callback) => {
+      const form = this.props.form;
+      if (value && value !== form.getFieldValue('password')) {
+        callback('Two passwords that you enter is inconsistent!');
+      } else {
+        callback();
+      }
     }
 
     render() {
@@ -32,9 +42,9 @@ class Login extends React.Component {
       return (
         <div className="login-container">
           <div className="login-center-div">
-            <p className="text-login">LOGIN</p>
+            <p className="text-login">REGISTER</p>
 
-            <Form onSubmit={this.handleSubmit} layout="vertical">
+            <Form onSubmit={this.handleSubmit} layout="vertical" >
               <FormItem>
                 {
                   getFieldDecorator('email', {
@@ -56,7 +66,19 @@ class Login extends React.Component {
               </FormItem>
 
               <FormItem>
-                <Button htmlType="submit" className="btn-signin">LOG IN</Button>
+                {getFieldDecorator('confirmPassword', {
+                  rules: [{
+                    required: true, message: 'Please confirm your password!',
+                  }, {
+                    validator: this.compareToFirstPassword,
+                  }],
+                })(
+                  <Input className="login-input" type="password" prefix={<Icon type="lock" />} placeholder="Re-enter Password" />
+                )}
+              </FormItem>
+
+              <FormItem>
+                <Button htmlType="submit" className="btn-signin">REGISTER</Button>
               </FormItem>
             </Form>
 
@@ -71,4 +93,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default Register;
