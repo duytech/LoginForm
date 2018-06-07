@@ -1,96 +1,112 @@
 import React from 'react';
-import Button from 'antd/lib/button';
-import Form  from 'antd/lib/form';
-import Input  from 'antd/lib/input';
-import Icon from 'antd/lib/icon';
-import axios from 'axios';
+import { Button, Form, Input, Icon} from 'antd';
+import { User } from '../../Services'; 
 import './Register.css';
 
-const BASE_URL = 'http://zod.2cs.local/indexci';
 const FormItem = Form.Item;
 
 class Register extends React.Component {
-    handleSubmit = (e) => {
-      e.preventDefault();
-      console.log('register handleSubmit');
-      this.props.form.validateFields((err, values) => {
-        if (!err) {
-          console.log('Received values of form: ', values);
-          const postObject = {
-            'Email': values.email,
-            'Username': values.email,
-            'Password': values.password,
-          };
-          axios.post(BASE_URL + '/api/user/register', postObject)
-            .then(res => { alert(res.statusText); })
-            .catch(err => { alert(err); });
-        }
-      });
-    }
+  constructor(props) {
+    super(props);
+    this.state = { confirmDirty: false };
+  }
 
-    compareToFirstPassword = (rule, value, callback) => {
-      const form = this.props.form;
-      if (value && value !== form.getFieldValue('password')) {
-        callback('Two passwords that you enter is inconsistent!');
-      } else {
-        callback();
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('register handleSubmit');
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        
+        const postObject = {
+          'Email': values.email,
+          'Username': values.email,
+          'Password': values.password,
+        };
+        User.register(postObject);
       }
+    });
+  }
+
+  compareToFirstPassword = (rule, value, callback) => {
+    const form = this.props.form;
+    if (value && value !== form.getFieldValue('password')) {
+      callback('Two passwords that you enter is inconsistent!');
+    } else {
+      callback();
     }
+  }
 
-    render() {
-      const { getFieldDecorator } = this.props.form;
-      return (
-        <div className="login-container">
-          <div className="login-center-div">
-            <p className="text-login">REGISTER</p>
+  validateToNextPassword = (rule, value, callback) => {
+    const form = this.props.form;
+    if (value && this.state.confirmDirty) {
+      form.validateFields(['confirmPassword'], { force: true });
+    }
+    callback();
+  }
 
-            <Form onSubmit={this.handleSubmit} layout="vertical" >
-              <FormItem>
-                {
-                  getFieldDecorator('email', {
-                    rules: [{ required: true, message: 'Please input your email!' }],
-                  })(
-                    <Input className="login-input" prefix={<Icon type="mail" />} placeholder="Email / Phone Number"></Input>
-                  )
-                }
-              </FormItem>
+  handleConfirmBlur = (e) => {
+    const value = e.target.value;
+    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+  }
 
-              <FormItem>
-                {
-                  getFieldDecorator('password', {
-                    rules: [{ required: true, message: 'Please input your password!'}],
-                  })(
-                    <Input className="login-input" prefix={<Icon type="lock" />} placeholder="Password" type="password"></Input>
-                  )
-                }
-              </FormItem>
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    return (
+      <div className="login-container">
+        <div className="login-center-div">
+          <p className="text-login">REGISTER</p>
 
-              <FormItem>
-                {getFieldDecorator('confirmPassword', {
-                  rules: [{
-                    required: true, message: 'Please confirm your password!',
-                  }, {
-                    validator: this.compareToFirstPassword,
-                  }],
+          <Form onSubmit={this.handleSubmit} layout="vertical" >
+            <FormItem>
+              {
+                getFieldDecorator('email', {
+                  rules: [{ required: true, message: 'Please input your email!' }],
                 })(
-                  <Input className="login-input" type="password" prefix={<Icon type="lock" />} placeholder="Re-enter Password" />
-                )}
-              </FormItem>
+                  <Input className="login-input" prefix={<Icon type="mail" />} placeholder="Email / Phone Number"></Input>
+                )
+              }
+            </FormItem>
 
-              <FormItem>
-                <Button htmlType="submit" className="btn-signin">REGISTER</Button>
-              </FormItem>
-            </Form>
+            <FormItem>
+              {
+                getFieldDecorator('password', {
+                  rules: [
+                    { required: true, message: 'Please input your password!'}, 
+                    { validator: this.validateToNextPassword },
+                  ],
+                })(
+                  <Input className="login-input" prefix={<Icon type="lock" />} placeholder="Password" type="password"></Input>
+                )
+              }
+            </FormItem>
 
-            <p className="text-or">OR</p>
+            <FormItem>
+              {getFieldDecorator('confirmPassword', {
+                rules: [{
+                  required: true, message: 'Please confirm your password!',
+                }, {
+                  validator: this.compareToFirstPassword,
+                }],
+              })(
+                <Input className="login-input" type="password" prefix={<Icon type="lock" />} placeholder="Re-enter Password" onBlur={this.handleConfirmBlur} />
+              )}
+            </FormItem>
 
-            <button className="btn-third-login">f</button>
-            <div className="distance-div-3"></div>
-            <button className="btn-third-login">G+</button>
-          </div>
+            <FormItem>
+              <Button htmlType="submit" className="btn-signin">REGISTER</Button>
+            </FormItem>
+          </Form>
+
+          <p className="text-or">OR</p>
+
+          <button className="btn-third-login">f</button>
+          <div className="distance-div-3"></div>
+          <button className="btn-third-login">G+</button>
         </div>
-      );
-    }
+      </div>
+    );
+  }
 }
 
 export default Register;

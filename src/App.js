@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Form  from 'antd/lib/form';
-import { Login } from './Components';
-import Register from './Components/Register/Register';
+import { Login, Register, ForgotPassword } from './Components';
 import { Route, Link } from 'react-router-dom';
 
 const WrappedLoginForm = Form.create()(Login);
 const WrappedRegisterForm = Form.create()(Register);
+const WrappedForgotPasswordForm = Form.create()(ForgotPassword);
 
 class App extends Component {
   render() {
@@ -23,6 +23,7 @@ class App extends Component {
 
         <Route path="/login" component={WrappedLoginForm}></Route>
         <Route path="/register" component={WrappedRegisterForm}></Route>
+        <Route path="/forgotpassword" component={WrappedForgotPasswordForm}></Route>
       </div>
     );
   }
